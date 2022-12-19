@@ -65,7 +65,7 @@ Following is the Depth-First Search<br>
 6<br>
 ************************************************************************************
 3. Write a Program to Implement Depth First Search using Python.<br>
-# Using a Python dictionary to act as an adjacency list<br>
+   # Using a Python dictionary to act as an adjacency list<br>
 graph = {<br>
 '5' : ['3','7'],<br>
 '3' : ['2', '4'],<br>
@@ -84,7 +84,7 @@ def dfs(visited, graph, node): #function for dfs<br>
     for neighbour in graph[node]:<br>
       dfs(visited, graph, neighbour)<br>
 
-# Driver Code<br>
+    # Driver Code<br>
 print("Following is the Depth-First Search")<br>
 dfs(visited, graph, '5')<br>
 
