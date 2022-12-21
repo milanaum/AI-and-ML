@@ -242,12 +242,12 @@ Board after 8 move<br>
 Winner is: 2<br>
 ***********************************************************************************************
 4.Write a Program to Implement Best First Search using Python.<br>
-#Write a Program to Implement Best First Search using Python.<br>
+      #Write a Program to Implement Best First Search using Python.<br>
 from queue import PriorityQueue<br>
 import matplotlib.pyplot as plt<br>
 import networkx as nx<br>
 
-# for implementing BFS | returns path having lowest cost<br>
+     # for implementing BFS | returns path having lowest cost<br>
 def best_first_search(source, target, n):<br>
     visited = [0] * n<br>
     visited[source] = True<br>
@@ -264,7 +264,7 @@ def best_first_search(source, target, n):<br>
                 pq.put((c, v))<br>
     print()<br>
     
-# for adding edges to graph<br>
+      # for adding edges to graph<br>
 def addedge(x, y, cost):<br>
     graph[x].append((y, cost))<br>
     graph[y].append((x, cost))<br>
