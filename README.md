@@ -240,3 +240,44 @@ Board after 8 move<br>
  [1 2 1]<br>
  [1 1 0]]<br>
 Winner is: 2<br>
+***********************************************************************************************
+4.Write a Program to Implement Best First Search using Python.<br>
+#Write a Program to Implement Best First Search using Python.<br>
+from queue import PriorityQueue<br>
+import matplotlib.pyplot as plt<br>
+import networkx as nx<br>
+
+# for implementing BFS | returns path having lowest cost<br>
+def best_first_search(source, target, n):<br>
+    visited = [0] * n<br>
+    visited[source] = True<br>
+    pq = PriorityQueue()<br>
+    pq.put((0, source))<br>
+    while pq.empty() == False:<br>
+        u = pq.get()[1]<br>
+        print(u, end=" ") # the path having lowest cost<br>
+        if u == target:<br>
+            break<br>
+        for v, c in graph[u]:<br>
+            if visited[v] == False:<br>
+                visited[v] = True<br>
+                pq.put((c, v))<br>
+    print()<br>
+    
+# for adding edges to graph<br>
+def addedge(x, y, cost):<br>
+    graph[x].append((y, cost))<br>
+    graph[y].append((x, cost))<br>
+    
+v = int(input("Enter the number of nodes: "))<br>
+graph = [[] for i in range(v)] # undirected Graph<br><br>
+e = int(input("Enter the number of edges: "))<br>
+print("Enter the edges along with their weights:")<br>
+for i in range(e):<br>
+    x, y, z = list(map(int, input().split()))<br>
+    addedge(x, y, z)<br>
+source = int(input("Enter the Source Node: "))<br>
+target = int(input("Enter the Target/Destination Node: "))<br>
+print("\nPath: ", end = "")<br>
+best_first_search(source, target, v)<br>
+
