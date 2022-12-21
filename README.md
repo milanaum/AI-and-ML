@@ -31,7 +31,7 @@ OUTPUT:<br>
 Following is the Breadth-First Search<br>
 1 2 10 3 8 4 9 5 6 7 <br>
 ************************************************************************************************
-2.Write a Program to Implement Best First Search using Python.<br>
+2.Write a Program to Implement Depth First Search using Python..<br>
 graph = {<br>
     '5': ['3','7'],<br>
     '3': ['2','4'],<br>
@@ -99,7 +99,7 @@ Following is the Depth-First Search<br>
 7<br>
 6<br>
 *******************************************************************************************************
-4. Write a Program to Implement Tic-Tac-Toe application using Python.<br>
+3. Write a Program to Implement Tic-Tac-Toe application using Python.<br>
 import numpy as np<br>
 import random<br>
 from time import sleep<br>
