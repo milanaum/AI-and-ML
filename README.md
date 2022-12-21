@@ -281,3 +281,16 @@ target = int(input("Enter the Target/Destination Node: "))<br>
 print("\nPath: ", end = "")<br>
 best_first_search(source, target, v)<br>
 
+OUTPUT:<br>
+Enter the number of nodes: 4<br>
+Enter the number of edges: 5<br>
+Enter the edges along with their weights:<br>
+0 1 1<br>
+0 2 1<br>
+0 3 2<br>
+2 3 2<br>
+1 3 3<br>
+Enter the Source Node: 2<br>
+Enter the Target/Destination Node: 1<br>
+
+Path: 2 0 1 <br>
