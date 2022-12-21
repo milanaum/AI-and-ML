@@ -296,3 +296,26 @@ Steps: <br>
 0 2<br>
 True<br>
 ****************************************************************************************************
+6.Write a Program to Implement Tower of Hanoi using Python.<br>
+#Write a Program to Implement Tower of Hanoi using Python.<br>
+def TowerOfHanoi(n , source, destination, auxiliary):<br>
+    if n==1:<br>
+        print ("Move disk 1 from source",source,"to destination",destination)<br>
+        return<br>
+    TowerOfHanoi(n-1, source, auxiliary, destination)<br>
+    print ("Move disk",n,"from source",source,"to destination",destination)<br>
+    TowerOfHanoi(n-1, auxiliary, destination, source)<br>
+    
+n = 3<br>
+TowerOfHanoi(n,'X','Y','Z')<br>
+
+OUTPUT:<br>
+
+Move disk 1 from source X to destination Y<br>
+Move disk 2 from source X to destination Z<br>
+Move disk 1 from source Y to destination Z<br>
+Move disk 3 from source X to destination Y<br>
+Move disk 1 from source Z to destination X<br>
+Move disk 2 from source Z to destination Y<br>
+Move disk 1 from source X to destination Y<br>
+*******************************************************************************************************************************
