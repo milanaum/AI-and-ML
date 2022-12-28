@@ -469,20 +469,30 @@ OUTPUT: <br>
 80 <br>
 ***************************************************************************************************************************
 9.Write a program to implement the FIND-S Algorithm for finding the most specifichypothesis based on a given set of training data samples. Read the training data from a.CSV file.<br>
+
+import csv<br>
+with open('Training_examples.csv', 'w', newline='') as file:<br>
+    writer = csv.writer(file)<br>
+    writer.writerow(["TIME", "WEATHER", "TEMPERATURE",'COMPANY','HUMIDITY','WIND','GOES'])
+    writer.writerow(['Morning','Sunny','Warm','Yes','Mild','Strong','Yes'])<br>
+    writer.writerow(['Evening','Rainy','Cold','No','Mild','Normal','No'])<br>
+    writer.writerow(['Morning','Sunny','Moderate','Yes','Normal','Normal','Yes'])<br>
+    writer.writerow(['Evening','Sunny','Cold','Yes','High','Strong','Yes'])<br>
+import csv<br>
 import pandas as pd<br>
 import numpy as np<br>
  
 #to read the data in the csv file<br>
-data = pd.read_csv("Training _examples.csv")<br>
-print(data)<br>
+data = pd.read_csv("Training_examples.csv")<br>
+print(data,"")<br>
  
 #making an array of all the attributes<br>
 d = np.array(data)[:,:-1]<br>
-print("The attributes are: ",d)<br>
+print("\n The attributes are:\n ",d)<br>
  
 #segragating the target that has positive and negative examples<br>
 target = np.array(data)[:,-1]<br>
-print("The target is: ",target)<br>
+print("\n The target is: ",target)<br>
  
 #training function to implement find-s algorithm<br>
 def train(c,t):<br>
@@ -498,59 +508,29 @@ def train(c,t):<br>
                     specific_hypothesis[x] = '?'<br>
                 else:<br>
                     pass<br>
-                return specific_hypothesis<br>
+                 
+    return specific_hypothesis<br>
  
 #obtaining the final hypothesis<br>
-print("The final hypothesis is:",train(d,target))<br>
+print("\n The final hypothesis is:",train(d,target))<br>
+
 
 OUTPUT:<br>
-   Sunny   Warm  Normal   Strong  Warm.1     Same   Yes<br>
-0  Sunny   Warm    High   Strong    Warm     Same   Yes<br>
-1  Rainy   Cold    High   Strong    Warm   Change    No<br>
-2  Sunny   Warm    High   Strong    Cool   Change   Yes<br>
-The attributes are:  [['Sunny' ' Warm' ' High' ' Strong' ' Warm' ' Same']<br>
- ['Rainy' ' Cold' ' High' ' Strong' ' Warm' ' Change']<br>
- ['Sunny' ' Warm' ' High' ' Strong' ' Cool' ' Change']]<br>
-The target is:  [' Yes' ' No' ' Yes']<br>
-The final hypothesis is: None<br>
 
+ TIME WEATHER TEMPERATURE COMPANY HUMIDITY    WIND GOES<br>
+0  Morning   Sunny        Warm     Yes     Mild  Strong  Yes<br>
+1  Evening   Rainy        Cold      No     Mild  Normal   No<br>
+2  Morning   Sunny    Moderate     Yes   Normal  Normal  Yes<br>
+3  Evening   Sunny        Cold     Yes     High  Strong  Yes <br>
 
+ The attributes are:<br>
+  [['Morning' 'Sunny' 'Warm' 'Yes' 'Mild' 'Strong']<br>
+ ['Evening' 'Rainy' 'Cold' 'No' 'Mild' 'Normal']<br>
+ ['Morning' 'Sunny' 'Moderate' 'Yes' 'Normal' 'Normal']<br>
+ ['Evening' 'Sunny' 'Cold' 'Yes' 'High' 'Strong']]<br>
+
+ The target is:  ['Yes' 'No' 'Yes' 'Yes']<br>
+
+ The final hypothesis is: ['?' 'Sunny' '?' 'Yes' '?' '?']<br>
 ***************************************************************************
-import csv<br>
-hypo=['%','%','%','%','%','%']<br>
-with open('Training_examples.csv') as csv_file:<br>
-    readcsv = csv.reader(csv_file, delimiter=',')<br>
-    data=[]<br>
-    print("\n The given training examples are:")<br>
-    for row in readcsv:<br>
-        print(row)<br>
-        if row[len(row)-1]=='Yes':<br>
-            data.append(row)<br>
-    print("\n The positives examples are:")<br>
-    for x in data:<br>
-        print(x)<br>
-    TotalExamples=len(data)<br>
-    i=0<br>
-    j=0<br>
-    k=0<br>
-    print("\n The steps of the Find-s algorithm are\n",hypo)<br>
-    list =[]<br>
-    p=0<br>
-    d=len(data[p])-1<br>
-    for j in range(d):<br>
-        list.append(data[i][j])<br>
-        hypo=list<br>
-        for i in range(1,TotalExamples):<br>
-            for k in range(d):<br>
-                if hypo[k]!=data[i][k]:<br>
-                    hypo[k]='?'<br>
-            else:<br>
-                hypo[k]<br>
-                print(hypo)<br>
-                print("\n The maximally specific Find-s hypothesis for the given training examples is");<br>
-                list=[]<br>
-                for i in range(d):<br>
-                    list.append(hypo[i])<br>
-                    print(list)<br>
-                                
-        
+
