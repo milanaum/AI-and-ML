@@ -468,6 +468,89 @@ OUTPUT: <br>
 
 80 <br>
 ***************************************************************************************************************************
-9.Write a program to implement the FIND-S Algorithm for finding the most specific
-hypothesis based on a given set of training data samples. Read the training data from a
-.CSV file.<br>
+9.Write a program to implement the FIND-S Algorithm for finding the most specifichypothesis based on a given set of training data samples. Read the training data from a.CSV file.<br>
+import pandas as pd<br>
+import numpy as np<br>
+ 
+#to read the data in the csv file<br>
+data = pd.read_csv("Training _examples.csv")<br>
+print(data)<br>
+ 
+#making an array of all the attributes<br>
+d = np.array(data)[:,:-1]<br>
+print("The attributes are: ",d)<br>
+ 
+#segragating the target that has positive and negative examples<br>
+target = np.array(data)[:,-1]<br>
+print("The target is: ",target)<br>
+ 
+#training function to implement find-s algorithm<br>
+def train(c,t):<br>
+    for i, val in enumerate(t):<br>
+        if val == "Yes":<br>
+            specific_hypothesis = c[i].copy()<br>
+            break<br>
+             
+    for i, val in enumerate(c):<br>
+        if t[i] == "Yes":<br>
+            for x in range(len(specific_hypothesis)):<br>
+                if val[x] != specific_hypothesis[x]:<br>
+                    specific_hypothesis[x] = '?'<br>
+                else:<br>
+                    pass<br>
+                return specific_hypothesis<br>
+ 
+#obtaining the final hypothesis<br>
+print("The final hypothesis is:",train(d,target))<br>
+
+OUTPUT:<br>
+   Sunny   Warm  Normal   Strong  Warm.1     Same   Yes<br>
+0  Sunny   Warm    High   Strong    Warm     Same   Yes<br>
+1  Rainy   Cold    High   Strong    Warm   Change    No<br>
+2  Sunny   Warm    High   Strong    Cool   Change   Yes<br>
+The attributes are:  [['Sunny' ' Warm' ' High' ' Strong' ' Warm' ' Same']<br>
+ ['Rainy' ' Cold' ' High' ' Strong' ' Warm' ' Change']<br>
+ ['Sunny' ' Warm' ' High' ' Strong' ' Cool' ' Change']]<br>
+The target is:  [' Yes' ' No' ' Yes']<br>
+The final hypothesis is: None<br>
+
+
+***************************************************************************
+import csv<br>
+hypo=['%','%','%','%','%','%']<br>
+with open('Training_examples.csv') as csv_file:<br>
+    readcsv = csv.reader(csv_file, delimiter=',')<br>
+    data=[]<br>
+    print("\n The given training examples are:")<br>
+    for row in readcsv:<br>
+        print(row)<br>
+        if row[len(row)-1]=='Yes':<br>
+            data.append(row)<br>
+    print("\n The positives examples are:")<br>
+    for x in data:<br>
+        print(x)<br>
+    TotalExamples=len(data)<br>
+    i=0<br>
+    j=0<br>
+    k=0<br>
+    print("\n The steps of the Find-s algorithm are\n",hypo)<br>
+    list =[]<br>
+    p=0<br>
+    d=len(data[p])-1<br>
+    for j in range(d):<br>
+        list.append(data[i][j])<br>
+        hypo=list<br>
+        for i in range(1,TotalExamples):<br>
+            for k in range(d):<br>
+                if hypo[k]!=data[i][k]:<br>
+                    hypo[k]='?'<br>
+            else:<br>
+                hypo[k]<br>
+                print(hypo)<br>
+                print("\n The maximally specific Find-s hypothesis for the given training examples is");<br>
+                list=[]<br>
+                for i in range(d):<br>
+                    list.append(hypo[i])<br>
+                    print(list)<br>
+                                
+        
