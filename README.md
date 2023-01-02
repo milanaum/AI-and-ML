@@ -590,4 +590,4 @@ Final specific hypothesis:<br>
  ['Sunny', 'Warm', '?', 'Strong', '?', '?']<br>
 
 Final general hypothesis:<br>
- [['Sunny', '?', '?', '?', '?', '?'], ['?', 'Warm', '?', '?', '?', '?']]<br>
+ [['Sunny', '?', '?', '?', '?', '?'], ['?', 'Warm', '?', '?', '?', '?']]<br> 
