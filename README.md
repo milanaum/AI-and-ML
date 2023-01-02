@@ -533,4 +533,40 @@ OUTPUT:<br>
 
  The final hypothesis is: ['?' 'Sunny' '?' 'Yes' '?' '?']<br>
 ***************************************************************************
+10.Write a program to implement the Candidate-Elimination algorithm, For a given set oftraining data examples stored in a .CSV file.<br>
+import csv<br>
+with open("ws.csv")as csv_file:<br>
+    #csv_file=csv.reader(f)<br>
+    #data=list(csv_file)<br>
+    readcsv=csv.reader(csv_file,delimiter=',')<br>
+    data=[]<br>
+    for row in readcsv:<br>
+        data.append(row)<br>
+    s=data[1][:-1]<br>
+    g=[['?'for i in range(len(s))]for j in range(len(s))]<br>
+    for i in data:<br>
+        if i[-1]=="Yes":<br>
+            for j in range(len(s)):<br>
+                if i[j]!=s[j]:<br>
+                    s[j]='?'<br>
+                    g[j][j]='?'<br>
+        elif i[-1]=="No":<br>
+            for j in range(len(s)):<br>
+                if i[j]!=s[j]:<br>
+                      g[j][j]=s[j]<br>
+                else:<br>
+                    g[j][j]="?"<br>
+        print("\n steps of candidate elimination algorithm",data.index(i)+1)<br>
+        print(s)<br>
+        print(g)<br>
+    gh=[]<br>
+    for i in g:<br>
+        for j in i:<br>
+            if j!='?':<br>
+                gh.append(i)<br>
+                break<br>
+    print("\nFinal specific hypothesis:\n",s)<br>
+    print("\nFinal general hypothesis:\n",gh)    <br>
 
+
+OUTPUT:<br>
