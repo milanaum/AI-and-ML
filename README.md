@@ -649,4 +649,121 @@ OUTPUT:<br>
 True<br>
 
 ***************************************************************************************************************
+12. Write a Program to Implement A* algorithm using Python.<br>
+def aStarAlgo(start_node, stop_node):<br>
+         
+        open_set = set(start_node) <br>
+        closed_set = set()<br>
+        g = {} #store distance from starting node<br>
+        parents = {}# parents contains an adjacency map of all nodes<br>
+ 
+        #ditance of starting node from itself is zero<br>
+        g[start_node] = 0<br>
+        #start_node is root node i.e it has no parent nodes<br>
+        #so start_node is set to its own parent node<br>
+        parents[start_node] = start_node<br>
+         
+         
+        while len(open_set) > 0:<br>
+            n = None<br>
+ 
+            #node with lowest f() is found<br>
+            for v in open_set:<br>
+                if n == None or g[v] + heuristic(v) < g[n] + heuristic(n):<br>
+                    n = v<br>
+             
+                     
+            if n == stop_node or Graph_nodes[n] == None:<br>
+                pass<br>
+            else:<br>
+                for (m, weight) in get_neighbors(n):<br>
+                    #nodes 'm' not in first and last set are added to first<br>
+                    #n is set its parent<br>
+                    if m not in open_set and m not in closed_set:<br>
+                        open_set.add(m)<br>
+                        parents[m] = n<br>
+                        g[m] = g[n] + weight<br>
+                         
+     <br>
+                    #for each node m,compare its distance from start i.e g(m) to the<br>
+                    #from start through n node<br>
+                    else:<br>
+                        if g[m] > g[n] + weight:<br>
+                            #update g(m)<br>
+                            g[m] = g[n] + weight<br>
+                            #change parent of m to n<br>
+                            parents[m] = n<br>
+                             
+                            #if m in closed set,remove and add to open<br>
+                            if m in closed_set:<br><br>
+                                closed_set.remove(m)<br>
+                                open_set.add(m)<br>
+ 
+            if n == None:<br>
+                print('Path does not exist!')<br>
+                return None<br>
+ 
+            # if the current node is the stop_node<br>
+            # then we begin reconstructin the path from it to the start_node<br>
+            if n == stop_node:<br>
+                path = []<br>
+ 
+                while parents[n] != n:<br>
+                    path.append(n)<br>
+                    n = parents[n]<br>
+ 
+                path.append(start_node)<br>
+ 
+                path.reverse()<br>
+ 
+                print('Path found: {}'.format(path))<br>
+                return path<br>
+ 
+ 
+            # remove n from the open_list, and add it to closed_list<br>
+            # because all of his neighbors were inspected<br>
+            open_set.remove(n)<br>
+            closed_set.add(n)<br>
+ 
+        print('Path does not exist!')<br>
+        return None<br>
+         
+#define fuction to return neighbor and its distance<br>
+#from the passed node<br>
+def get_neighbors(v):<br>
+    if v in Graph_nodes:<br>
+        return Graph_nodes[v]<br>
+    else:<br>
+        return None<br>
+#for simplicity we ll consider heuristic distances given<br>
+#and this function returns heuristic distance for all nodes<br>
+def heuristic(n):<br>
+        H_dist = {<br>
+            'A': 11,<br>
+            'B': 6,<br>
+            'C': 99,<br>
+            'D': 1,<br>
+            'E': 7,<br>
+            'G': 0,
+             <br>
+        }<br>
+ <br>
+        return H_dist[n]<br>
+ <br>
+#Describe your graph here  <br>
+Graph_nodes = {<br>
+    'A': [('B', 2), ('E', 3)],<br>
+    'B': [('C', 1),('G', 9)],<br>
+    'C': None,<br>
+    'E': [('D', 6)],<br>
+    'D': [('G', 1)],<br>
+     
+}<br>
+aStarAlgo('A', 'G')<br>
+
+
+OUTPUT:<br>
+<br>
+Path found: ['A', 'E', 'D', 'G']<br>
+['A', 'E', 'D', 'G']<br>
 
