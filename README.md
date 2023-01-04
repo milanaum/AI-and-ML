@@ -684,7 +684,7 @@ def aStarAlgo(start_node, stop_node):<br>
                         parents[m] = n<br>
                         g[m] = g[n] + weight<br>
                          
-     <br>
+     
                     #for each node m,compare its distance from start i.e g(m) to the<br>
                     #from start through n node<br>
                     else:<br>
@@ -695,7 +695,7 @@ def aStarAlgo(start_node, stop_node):<br>
                             parents[m] = n<br>
                              
                             #if m in closed set,remove and add to open<br>
-                            if m in closed_set:<br><br>
+                            if m in closed_set:<br>
                                 closed_set.remove(m)<br>
                                 open_set.add(m)<br>
  
@@ -744,12 +744,12 @@ def heuristic(n):<br>
             'C': 99,<br>
             'D': 1,<br>
             'E': 7,<br>
-            'G': 0,
-             <br>
+            'G': 0,<br>
+             
         }<br>
- <br>
+ 
         return H_dist[n]<br>
- <br>
+ 
 #Describe your graph here  <br>
 Graph_nodes = {<br>
     'A': [('B', 2), ('E', 3)],<br>
@@ -758,12 +758,11 @@ Graph_nodes = {<br>
     'E': [('D', 6)],<br>
     'D': [('G', 1)],<br>
      
-}<br>
-aStarAlgo('A', 'G')<br>
-
+}
+aStarAlgo('A', 'G')
 
 OUTPUT:<br>
-<br>
+
 Path found: ['A', 'E', 'D', 'G']<br>
 ['A', 'E', 'D', 'G']<br>
 
