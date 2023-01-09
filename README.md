@@ -767,107 +767,96 @@ Path found: ['A', 'E', 'D', 'G']<br>
 ['A', 'E', 'D', 'G']<br>
 *******************************************************************************************************************************************
 11.Write a Program to Implement AO* algorithm using Python.<br>
-def aStarAlgo(start_node, stop_node):<br>
-    open_set = set(start_node)<br>
-    closed_set = set()<br>
-    g = {}               #store distance from starting node<br>
-    parents = {}         # parents contains an adjacency map of all nodes<br>
-    #distance of starting node from itself is zero<br>
-    g[start_node] = 0<br>
-    #start_node is root node i.e it has no parent nodes<br>
-    #so start_node is set to its own parent node<br>
-    parents[start_node] = start_node<br>
-    while len(open_set) > 0:<br>
-        n = None<br>
-        #node with lowest f() is found<br>
-        for v in open_set:<br>
-            if n == None or g[v] + heuristic(v) < g[n] + heuristic(n):<br>
-                n = v<br>
-        if n == stop_node or Graph_nodes[n] == None:<br>
-            pass<br>
-        else:<br>
-            for (m, weight) in get_neighbors(n):<br>
-                #nodes 'm' not in first and last set are added to first<br>
-                #n is set its parent<br>
-                if m not in open_set and m not in closed_set:<br>
-                    open_set.add(m)<br>
-                    parents[m] = n<br>
-                    g[m] = g[n] + weight<br>
-                #for each node m,compare its distance from start i.e g(m) to the<br>
-                #from start through n node<br>
-                else:<br>
-                    if g[m] > g[n] + weight:<br>
-                        #update g(m)<br>
-                        g[m] = g[n] + weight<br>
-                        #change parent of m to n<br>
-                        parents[m] = n<br>
-                        #if m in closed set,remove and add to open<br>
-                        if m in closed_set:<br>
-                            closed_set.remove(m)<br>
-                            open_set.add(m)<br>
-        if n == None:<br>
-            print('Path does not exist!')<br>
-            return None<br>
+class Graph:
+    def __init__(self, graph, heuristicNodeList, startNode):
+        self.graph = graph
+        self.H=heuristicNodeList
+        self.start=startNode
+        self.parent={}
+        self.status={}
+        self.solutionGraph={}
+    
+    def applyAOStar(self):
+        self.aoStar(self.start, False)
+
+    def getNeighbors(self, v):
+        return self.graph.get(v,'')
+    
+    def getStatus(self,v):
+        return self.status.get(v,0)
+    
+    def setStatus(self,v, val):
+        self.status[v]=val
         
-        # if the current node is the stop_node<br>
-        # then we begin reconstructin the path from it to the start_node<br>
-        if n == stop_node:<br>
-            path = []<br>
-            while parents[n] != n:<br>
-                path.append(n)<br>
-                n = parents[n]<br>
-            path.append(start_node)<br>
-            path.reverse()<br>
-            print('Path found: {}'.format(path))<br>
-            return path<br>
-        # remove n from the open_list, and add it to closed_list<br>
-        # because all of his neighbors were inspected<br>
-        open_set.remove(n)<br>
-        closed_set.add(n)<br>
-    print('Path does not exist!')<br>
-    return None<br>
-
-#define fuction to return neighbor and its distance<br>
-#from the passed node<br>
-def get_neighbors(v):<br>
-    if v in Graph_nodes:<br>
-        return Graph_nodes[v]<br>
-    else:<br>
-        return None<br>
-#for simplicity we ll consider heuristic distances given<br>
-#and this function returns heuristic distance for all nodes<br>
-def heuristic(n):<br>
-    H_dist = {<br>
-        'A': 11,<br>
-        'B': 6,<br>
-        'C': 5,<br>
-        'D': 7,<br>
-        'E': 3,<br>
-        'F': 6,<br>
-        'G': 5,<br>
-        'H': 3,<br>
-        'I': 1,<br>
-        'J': 0<br>
-    }<br>
-    return H_dist[n]<br>
-
-#Describe your graph here<br>
-Graph_nodes = {<br>
-    'A': [('B', 6), ('F', 3)],<br>
-    'B': [('A', 6), ('C', 3), ('D', 2)],<br>
-    'C': [('B', 3), ('D', 1), ('E', 5)],<br>
-    'D': [('B', 2), ('C', 1), ('E', 8)],<br>
-    'E': [('C', 5), ('D', 8), ('I', 5), ('J', 5)],<br>
-    'F': [('A', 3), ('G', 1), ('H', 7)],<br>
-    'G': [('F', 1), ('I', 3)],<br>
-    'H': [('F', 7), ('I', 2)],<br>
-    'I': [('E', 5), ('G', 3), ('H', 2), ('J', 3)],<br>
-}<br>
-
-aStarAlgo('A', 'J')<br>
-
-OUTPUT:<br>
-
-Path found: ['A', 'F', 'G', 'I', 'J']<br>
-['A', 'F', 'G', 'I', 'J']<br>
+    def getHeuristicNodeValue(self, n):
+        return self.H.get(n,0)
+    
+    def setHeuristicNodeValue(self, n, value):
+        self.H[n]=value
+    
+    def printSolution(self):
+        print("FOR GRAPH SOLUTION, TRAVERSE THE GRAPH FROM THE STARTNODE:",self.start)
+        print("------------------------------------------------------------")
+        print(self.solutionGraph)
+        print("------------------------------------------------------------")
+  
+    
+    def computeMinimumCostChildNodes(self, v):
+        minimumCost=0
+        costToChildNodeListDict={}
+        costToChildNodeListDict[minimumCost]=[]
+        flag=True
+        for nodeInfoTupleList in self.getNeighbors(v):
+            cost=0
+            nodeList=[]
+            for c, weight in nodeInfoTupleList:
+                cost=cost+self.getHeuristicNodeValue(c)+weight
+                nodeList.append(c)
+            if flag==True:
+                minimumCost=cost
+                costToChildNodeListDict[minimumCost]=nodeList
+                flag=False
+            else:
+                if minimumCost>cost:
+                    minimumCost=cost
+                    costToChildNodeListDict[minimumCost]=nodeList
+        return minimumCost, costToChildNodeListDict[minimumCost]
+     
+    def aoStar(self, v, backTracking):
+        print("HEURISTIC VALUES :", self.H)
+        print("SOLUTION GRAPH :", self.solutionGraph)
+        print("PROCESSING NODE :", v)
+        print("-----------------------------------------------------------------------------------------")
+        if self.getStatus(v) >= 0:
+            minimumCost, childNodeList = self.computeMinimumCostChildNodes(v)
+            print(minimumCost, childNodeList)
+            self.setHeuristicNodeValue(v, minimumCost)
+            self.setStatus(v,len(childNodeList))
+            solved=True
+            for childNode in childNodeList:
+                self.parent[childNode]=v
+                if self.getStatus(childNode)!=-1:
+                    solved=solved & False
+          
+        if solved==True:
+            self.setStatus(v,-1)
+            self.solutionGraph[v]=childNodeList
+        if v!=self.start:
+            self.aoStar(self.parent[v], True)
+        if backTracking==False:
+            for childNode in childNodeList:
+                self.setStatus(childNode,0)
+                self.aoStar(childNode, False)
+print ("Graph - 1")
+h1 = {'A': 1, 'B': 6, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 5, 'H': 7, 'I': 7, 'J': 1}
+graph1 = {
+    'A': [[('B', 1), ('C', 1)], [('D', 1)]],
+    'B': [[('G', 1)], [('H', 1)]],
+    'C': [[('J', 1)]],
+    'D': [[('E', 1), ('F', 1)]],
+    'G': [[('I', 1)]]
+}
+G1= Graph(graph1, h1, 'A')
+G1.applyAOStar()
+G1.printSolution()
 
