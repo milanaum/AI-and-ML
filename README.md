@@ -110,7 +110,7 @@ def col_win(board, player):<br>
     
         for y in range(len(board)):<br>
             if board[y][x] != player:<br>
-                win = False<br>
+                win = False<br >
                 continue<br>
 
         if win == True:<br>
